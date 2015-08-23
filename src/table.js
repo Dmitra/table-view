@@ -55,9 +55,10 @@ Self.prototype.currencyRenderer = function (instance, td, row, col, prop, value,
   value = instance.getDataAtCell(row, col)
   if (!_.isObject(value)) return
 
+  Handsontable.Dom.empty(td)
   var span = document.createElement('span')
   span.classList.add('currency')
-  span.innerHTML = currencyFormatter.symbolize(value.iso)
+  span.innerText = currencyFormatter.symbolize(value.iso)
   td.appendChild(span)
   var text = document.createTextNode(value.value)
   td.appendChild(text)
@@ -68,6 +69,7 @@ Self.prototype.imgRenderer = function (instance, td, row, col, prop, value, cell
   //TODO use native value
   value = instance.getDataAtCell(row, col)
   if (!_.isObject(value)) return
+
   var escaped = Handsontable.helper.stringify(value.src),
     img
 
@@ -96,10 +98,7 @@ Self.prototype.urlRenderer = function (instance, td, row, col, prop, value, cell
   value = instance.getDataAtCell(row, col)
   if (!_.isObject(value)) return
 
-  var a = document.createElement('a')
-  a.href = value.src
-  a.innerHTML = value.text
-  td.appendChild(a)
+  td.innerHTML = '<a href="' + value.src + '">' + value.text + '</a>'
   return td
 }
 
