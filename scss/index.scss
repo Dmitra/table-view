@@ -1,0 +1,14 @@
+.tableView {
+  td.currentRow {
+    background-color: #d1d1d1!important;
+  }
+  .currentCol {
+    background-color: #d1d1d1!important;
+  }
+  tr:nth-child(odd) td {
+    background-color: #fff;
+  }
+  tr:nth-child(even) td {
+    background-color: #eee; 
+  }
+}

@@ -18,8 +18,6 @@ many different date formats tested - none of them work: https://en.wikipedia.org
 
 ##Bugs
 consider missing values
-Table breaks on scroll
-Doesn't display properly in FF
 
 ##Roadmap
 Hide columns with the same value - show it before table.

@@ -40,6 +40,13 @@ var Self = function (p) {
   self.table = new Handsontable(self.container, {
     startRows: 5,
     colHeaders: headers,
+    currentRowClassName: 'currentRow',
+    currentColClassName: 'currentCol',
+    rowHeaders: true,
+    manualColumnResize: true,
+    manualRowResize: true,
+    contextMenu: true,
+    manualColumnFreeze: true,
     minSpareRows: 1,
     columns: columns
   })
