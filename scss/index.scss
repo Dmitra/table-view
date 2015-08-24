@@ -11,4 +11,13 @@
   tr:nth-child(even) td {
     background-color: #eee; 
   }
+  .img-cell {
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: contain;
+  }
+  /*override default read-only style*/
+  .htDimmed {
+    color: #000;
+  }
 }

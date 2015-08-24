@@ -38,16 +38,20 @@ var Self = function (p) {
   })
 
   self.table = new Handsontable(self.container, {
-    startRows: 5,
     colHeaders: headers,
     currentRowClassName: 'currentRow',
     currentColClassName: 'currentCol',
     rowHeaders: true,
     manualColumnResize: true,
     manualRowResize: true,
+    //TODO breaks freezing column
+    //manualColumnMove: true,
+    //manualRowMove: true,
+    allowRemoveColumn: true,
     contextMenu: true,
     manualColumnFreeze: true,
-    minSpareRows: 1,
+    allowInsertRow: false,
+    allowInsertColumn: false,
     columns: columns
   })
 }
@@ -77,27 +81,19 @@ Self.prototype.imgRenderer = function (instance, td, row, col, prop, value, cell
   value = instance.getDataAtCell(row, col)
   if (!_.isObject(value)) return
 
-  var escaped = Handsontable.helper.stringify(value.src),
-    img
+  var escaped = Handsontable.helper.stringify(value.src)
 
   if (escaped.indexOf('http') === 0) {
-    img = document.createElement('IMG')
-    img.src = value.src
-    img.alt = value.alt
-
-    Handsontable.Dom.addEvent(img, 'mousedown', function (e){
-      e.preventDefault(); // prevent selection quirk
-    });
-
     Handsontable.Dom.empty(td)
-    td.appendChild(img)
+    $(td).addClass('img-cell')
+    $(td).css('background-image', 'url(' + value.src + ')')
   }
   else {
     // render as text
     Handsontable.renderers.TextRenderer.apply(this, arguments)
   }
 
-  return td;
+  return td
 }
 
 Self.prototype.urlRenderer = function (instance, td, row, col, prop, value, cellProperties) {
