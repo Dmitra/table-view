@@ -70,7 +70,7 @@ Self.prototype.render = function (data) {
 Self.prototype._currencyRenderer = function (instance, td, row, col, prop, value, cellProperties) {
   //TODO use passed value
   value = instance.getDataAtCell(row, col)
-  if (!_.isObject(value)) return
+  if (!_.isObject(value) || !value.value) return Handsontable.renderers.TextRenderer(instance, td, row, col, prop, '', cellProperties)
 
   Handsontable.Dom.empty(td)
   var span = document.createElement('span')
@@ -87,7 +87,7 @@ Self.prototype._currencyRenderer = function (instance, td, row, col, prop, value
 Self.prototype._imgRenderer = function (instance, td, row, col, prop, value, cellProperties) {
   //TODO use passed value
   value = instance.getDataAtCell(row, col)
-  if (!_.isObject(value)) return
+  if (!_.isObject(value) || !value.src) return Handsontable.renderers.TextRenderer(instance, td, row, col, prop, '', cellProperties)
 
   var escaped = Handsontable.helper.stringify(value.src)
 
@@ -109,7 +109,7 @@ Self.prototype._imgRenderer = function (instance, td, row, col, prop, value, cel
 Self.prototype._urlRenderer = function (instance, td, row, col, prop, value, cellProperties) {
   //TODO use passed value
   value = instance.getDataAtCell(row, col)
-  if (!_.isObject(value)) return
+  if (!_.isObject(value) || !value.src) return Handsontable.renderers.TextRenderer(instance, td, row, col, prop, '', cellProperties)
 
   td.innerHTML = '<a href="' + value.src + '">' + value.text + '</a>'
   return td

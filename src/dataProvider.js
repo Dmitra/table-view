@@ -2,7 +2,7 @@ var options = require('../options')
 
 var Self = function (p) {
   var self = this
-  self.connector = options.connector1
+  self.connector = options.connector
   self.auth = options.auth
 }
 /**
