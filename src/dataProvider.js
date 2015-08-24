@@ -2,20 +2,25 @@ var options = require('../options')
 
 var Self = function (p) {
   var self = this
+  self.connector = options.connector1
+  self.auth = options.auth
 }
-
+/**
+ * load data from Import.io API
+ * @param Function cb success callback
+ */
 Self.prototype.load = function (cb) {
   var self = this
 
   var requestOptions = {
-    _user: options.auth.user
-  , _apikey: options.auth.apikey
+    _user: self.auth.user
+  , _apikey: self.auth.apikey
   }
-  requestOptions[options.connector.query.type] = options.connector.query.url
+  requestOptions[self.connector.query.type] = self.connector.query.url
 
   $.ajax({
     type: 'GET'
-  , url: 'https://api.import.io/store/data/' + options.connector.GUID + '/_query?'
+  , url: 'https://api.import.io/store/data/' + self.connector.GUID + '/_query?'
   , data: requestOptions
   , contentType: 'text/plain'
   , xhrFields: {
@@ -32,15 +37,21 @@ Self.prototype.load = function (cb) {
 Self.prototype._onLoad = function (cb, data) {
   var self = this
 
+  console.log(data);
   cb(self.process(data))
 }
-
+/*
+ * prepare data for application
+ */
 Self.prototype.process = function (data) {
   var rows = data.results
   , columnDefinitions = data.outputProperties
 
   columnDefinitions.forEach(function (column) {
+
+    //mark columns with the same value for each row
     column.sameValue = true
+
     var previousValue = rows[0][column.name]
     rows.forEach(function (row) {
       column.sameValue = previousValue === row[column.name]
@@ -50,7 +61,6 @@ Self.prototype.process = function (data) {
         , text: row[column.name + '/_text']
         }
       } else if (column.type === 'IMAGE') {
-      
         row[column.name] = {
           src: row[column.name]
         , alt: row[column.name + '/_alt']

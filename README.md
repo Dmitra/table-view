@@ -1,6 +1,9 @@
 #Table view for Import.io API
 This is read-only view for data scraped by Import.io
 
+##Demo
+[Live](http://dmitra.com/vis/table-view)
+
 ##Usage
 write your import.io keys and connector params to options.js
 ```

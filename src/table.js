@@ -18,13 +18,13 @@ var Self = function (p) {
         break;
       case 'CURRENCY':
         column.type = 'numeric'
-        column.renderer = self.currencyRenderer
+        column.renderer = self._currencyRenderer
         break;
       case 'IMAGE':
-        column.renderer = self.imgRenderer
+        column.renderer = self._imgRenderer
         break;
       case 'URL':
-        column.renderer = self.urlRenderer
+        column.renderer = self._urlRenderer
         break;
       case 'BOOLEAN':
         column.type = 'checkbox'
@@ -37,7 +37,7 @@ var Self = function (p) {
     columns.push(column)
   })
 
-  self.table = new Handsontable(self.container, {
+  var tableConfig = {
     colHeaders: headers,
     currentRowClassName: 'currentRow',
     currentColClassName: 'currentCol',
@@ -53,16 +53,22 @@ var Self = function (p) {
     allowInsertRow: false,
     allowInsertColumn: false,
     columns: columns
-  })
-}
+  }
 
+  self.table = new Handsontable(self.container, tableConfig)
+}
+/**
+ * Render table with data
+ */
 Self.prototype.render = function (data) {
   var self = this
   self.table.loadData(data)
 }
-
-Self.prototype.currencyRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-  //TODO use native value
+/**
+ * render cells formatted with currency symbol
+ */
+Self.prototype._currencyRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+  //TODO use passed value
   value = instance.getDataAtCell(row, col)
   if (!_.isObject(value)) return
 
@@ -75,9 +81,11 @@ Self.prototype.currencyRenderer = function (instance, td, row, col, prop, value,
   td.appendChild(text)
   return td
 }
-
-Self.prototype.imgRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-  //TODO use native value
+/**
+ * render cells with image
+ */
+Self.prototype._imgRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+  //TODO use passed value
   value = instance.getDataAtCell(row, col)
   if (!_.isObject(value)) return
 
@@ -95,9 +103,11 @@ Self.prototype.imgRenderer = function (instance, td, row, col, prop, value, cell
 
   return td
 }
-
-Self.prototype.urlRenderer = function (instance, td, row, col, prop, value, cellProperties) {
-  //TODO use native value
+/**
+ * render cells with links
+ */
+Self.prototype._urlRenderer = function (instance, td, row, col, prop, value, cellProperties) {
+  //TODO use passed value
   value = instance.getDataAtCell(row, col)
   if (!_.isObject(value)) return
 

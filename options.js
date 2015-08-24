@@ -10,3 +10,10 @@ module.exports.connector = {
   , url: 'http://www.ikea.com/us/en/search/?query=chair'
   }
 }
+module.exports.connector1 = {
+  GUID: '8d63635d-78b4-4140-8ceb-144de590b4dd'
+, query: {
+    type: 'input/webpage/url'
+  , url: 'https://en.wikipedia.org/wiki/Timeline_of_United_States_history'
+  }
+}

@@ -1,10 +1,10 @@
+//Application
+
 var Table = require('./table')
 var Provider = require('./dataProvider')
 
 var tableOptions = {
   target: document.querySelector('.tableView')
-, fixedColumns: 1
-, fixedRows: 1
 }
 
 function onLoad(data) {
